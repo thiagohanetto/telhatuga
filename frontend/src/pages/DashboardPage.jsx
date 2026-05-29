@@ -18,11 +18,9 @@ export default function DashboardPage() {
 
   return (
 
-    <div className="
-      min-h-screen
-      bg-gray-100
-    ">
+    <div className="min-h-screen bg-gray-100">
 
+      {/* HEADER */}
       <header className="
         bg-white
         shadow
@@ -44,9 +42,7 @@ export default function DashboardPage() {
           </h1>
 
           <p className="text-gray-600">
-            Bem-vindo,
-            {" "}
-            {user?.name}
+            Bem-vindo, {user?.name}
           </p>
 
         </div>
@@ -67,9 +63,8 @@ export default function DashboardPage() {
 
       </header>
 
-      <main className="
-        p-8
-      ">
+      {/* MAIN */}
+      <main className="p-8">
 
         <h2 className="
           text-2xl
@@ -83,10 +78,10 @@ export default function DashboardPage() {
           grid
           grid-cols-1
           md:grid-cols-2
-          lg:grid-cols-3
           gap-6
         ">
 
+          {/* PRECISO DE TELHAS */}
           <div className="
             bg-white
             p-6
@@ -94,49 +89,16 @@ export default function DashboardPage() {
             shadow
           ">
 
-            <h3 className="
-              text-xl
-              font-bold
-              mb-4
-            ">
+            <h3 className="text-xl font-bold mb-4">
               Preciso de Telhas
             </h3>
 
-            <button
-              onClick={() =>
-                navigate("/my-requests")
-              }
-              className="
-                ml-3
-                bg-blue-600
-                hover:bg-blue-700
-                text-white
-                px-4
-                py-2
-                rounded-lg
-              "
-            >
-              Solicitações
-            </button>
-
-            <p className="
-              text-gray-600
-              mb-6
-            ">
-              Registre uma necessidade
-              de telhas.
+            <p className="text-gray-600 mb-6">
+              Registre e acompanhe suas necessidades de telhas.
             </p>
 
-            <button
-              className="
-                bg-orange-600
-                hover:bg-orange-700
-                text-white
-                px-4
-                py-2
-                rounded-lg
-              "
-            >
+            <div className="flex flex-wrap gap-3">
+
               <button
                 onClick={() =>
                   navigate("/needs/new")
@@ -158,7 +120,6 @@ export default function DashboardPage() {
                   navigate("/my-needs")
                 }
                 className="
-                  ml-3
                   bg-orange-600
                   hover:bg-orange-700
                   text-white
@@ -169,11 +130,28 @@ export default function DashboardPage() {
               >
                 Ver Minhas
               </button>
-              
-            </button>
+
+              <button
+                onClick={() =>
+                  navigate("/my-requests")
+                }
+                className="
+                  bg-blue-600
+                  hover:bg-blue-700
+                  text-white
+                  px-4
+                  py-2
+                  rounded-lg
+                "
+              >
+                Solicitações
+              </button>
+
+            </div>
 
           </div>
 
+          {/* TENHO TELHAS */}
           <div className="
             bg-white
             p-6
@@ -181,50 +159,16 @@ export default function DashboardPage() {
             shadow
           ">
 
-            <h3 className="
-              text-xl
-              font-bold
-              mb-4
-            ">
+            <h3 className="text-xl font-bold mb-4">
               Tenho Telhas
             </h3>
-            
-            <button
-              onClick={() =>
-                navigate("/donation-requests")
-              }
-              className="
-                ml-3
-                bg-blue-600
-                hover:bg-blue-700
-                text-white
-                px-4
-                py-2
-                rounded-lg
-              "
-            >
-              Solicitações
-            </button>
 
-
-            <p className="
-              text-gray-600
-              mb-6
-            ">
-              Disponibilize telhas
-              para doação.
+            <p className="text-gray-600 mb-6">
+              Disponibilize telhas para doação.
             </p>
 
-            <button
-              className="
-                bg-green-600
-                hover:bg-green-700
-                text-white
-                px-4
-                py-2
-                rounded-lg
-              "
-            >
+            <div className="flex flex-wrap gap-3">
+
               <button
                 onClick={() =>
                   navigate("/availabilities/new")
@@ -246,7 +190,6 @@ export default function DashboardPage() {
                   navigate("/my-availabilities")
                 }
                 className="
-                  ml-3
                   bg-green-600
                   hover:bg-green-700
                   text-white
@@ -258,45 +201,23 @@ export default function DashboardPage() {
                 Ver Minhas
               </button>
 
-            </button>
+              <button
+                onClick={() =>
+                  navigate("/donation-requests")
+                }
+                className="
+                  bg-blue-600
+                  hover:bg-blue-700
+                  text-white
+                  px-4
+                  py-2
+                  rounded-lg
+                "
+              >
+                Solicitações
+              </button>
 
-          </div>
-
-          <div className="
-            bg-white
-            p-6
-            rounded-2xl
-            shadow
-          ">
-
-            <h3 className="
-              text-xl
-              font-bold
-              mb-4
-            ">
-              Matches
-            </h3>
-
-            <p className="
-              text-gray-600
-              mb-6
-            ">
-              Veja possíveis conexões
-              entre doadores e receptores.
-            </p>
-
-            <button
-              className="
-                bg-blue-600
-                hover:bg-blue-700
-                text-white
-                px-4
-                py-2
-                rounded-lg
-              "
-            >
-              Ver Matches
-            </button>
+            </div>
 
           </div>
 
@@ -306,5 +227,5 @@ export default function DashboardPage() {
 
     </div>
 
-  )
+  );
 }

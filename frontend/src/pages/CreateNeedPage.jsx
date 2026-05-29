@@ -21,9 +21,6 @@ export default function CreateNeedPage() {
   const [district, setDistrict] =
     useState("");
 
-  const [imageUrl, setImageUrl] =
-    useState("");
-
   const [imageFile, setImageFile] =
     useState(null);  
 
@@ -45,17 +42,23 @@ export default function CreateNeedPage() {
 
       if (error) {
 
+        console.error(error);
+
         alert("Erro ao enviar imagem");
 
         return;
       }
 
-      const { data } =
-        supabase.storage
-          .from("images")
-          .getPublicUrl(fileName);
+      const {
+        data: publicUrlData
+      } = supabase.storage
+        .from("images")
+        .getPublicUrl(fileName);
 
-      imageUrl = data.publicUrl;
+      imageUrl =
+        publicUrlData.publicUrl;
+      
+      console.log(imageUrl);
     }
 
     try {
