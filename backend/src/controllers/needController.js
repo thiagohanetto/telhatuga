@@ -9,7 +9,7 @@ export async function createNeed(req, res) {
       quantityNeeded,
       city,
       district,
-      photoUrl
+      imageUrl
     } = req.body;
 
     const parsedQuantity =
@@ -41,7 +41,7 @@ export async function createNeed(req, res) {
         quantityNeeded: Number(quantityNeeded),
         city,
         district,
-        photoUrl,
+        imageUrl,
         userId: req.userId
       }
     });
