@@ -1,0 +1,114 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum NeedStatus {
+  OPEN
+  PARTIAL
+  COMPLETED
+  CANCELLED
+}
+
+enum AvailabilityStatus {
+  OPEN
+  PARTIAL
+  COMPLETED
+  CANCELLED
+}
+
+enum DonationRequestStatus {
+  PENDING
+  APPROVED
+  COMPLETED
+  NOT_COMPLETED
+  CANCELLED
+  REJECTED
+}
+
+model User {
+  id              String               @id @default(cuid())
+  name            String
+  email           String               @unique
+  password        String
+  phone           String
+  city            String
+  createdAt       DateTime             @default(now())
+
+  needs           Need[]
+  availabilities  Availability[]
+
+  donationsSent     DonationRequest[] @relation("Donor")
+  donationsReceived DonationRequest[] @relation("Receiver")
+}
+
+model Need {
+  id                  String          @id @default(cuid())
+  tileType            String
+  quantityNeeded      Int
+  quantityReceived    Int             @default(0)
+
+  imageUrl            String?
+
+  city                String
+  district            String
+
+  status              NeedStatus      @default(OPEN)
+
+  createdAt           DateTime        @default(now())
+
+  userId              String
+  user                User            @relation(fields: [userId], references: [id])
+
+  donationRequests    DonationRequest[]
+}
+
+model Availability {
+  id                    String                @id @default(cuid())
+  tileType              String
+
+  quantityAvailable     Int
+  quantityReserved      Int                   @default(0)
+
+  imageUrl              String?
+
+  city                  String
+  district              String
+
+  status                AvailabilityStatus    @default(OPEN)
+
+  createdAt             DateTime              @default(now())
+
+  userId                String
+  user                  User                  @relation(fields: [userId], references: [id])
+
+  donationRequests      DonationRequest[]
+}
+
+model DonationRequest {
+  id                  String                  @id @default(cuid())
+
+  requestedQuantity   Int
+  approvedQuantity    Int?
+
+  status              DonationRequestStatus   @default(PENDING)
+
+  createdAt           DateTime                @default(now())
+  updatedAt           DateTime                @updatedAt
+
+  availabilityId      String
+  availability        Availability            @relation(fields: [availabilityId], references: [id])
+
+  needId              String
+  need                Need                    @relation(fields: [needId], references: [id])
+
+  donorId             String
+  donor               User                    @relation("Donor", fields: [donorId], references: [id])
+
+  receiverId          String
+  receiver            User                    @relation("Receiver", fields: [receiverId], references: [id])
+}
