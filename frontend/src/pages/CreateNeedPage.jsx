@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "../services/supabase";
 
 import api from "../services/api";
 
@@ -20,12 +21,42 @@ export default function CreateNeedPage() {
   const [district, setDistrict] =
     useState("");
 
-  const [photoUrl, setPhotoUrl] =
+  const [imageUrl, setImageUrl] =
     useState("");
+
+  const [imageFile, setImageFile] =
+    useState(null);  
 
   async function handleSubmit(e) {
 
     e.preventDefault();
+
+    let imageUrl = "";
+
+    if (imageFile) {
+
+      const fileName =
+        `${Date.now()}-${imageFile.name}`;
+
+      const { error } =
+        await supabase.storage
+          .from("images")
+          .upload(fileName, imageFile);
+
+      if (error) {
+
+        alert("Erro ao enviar imagem");
+
+        return;
+      }
+
+      const { data } =
+        supabase.storage
+          .from("images")
+          .getPublicUrl(fileName);
+
+      imageUrl = data.publicUrl;
+    }
 
     try {
 
@@ -183,18 +214,19 @@ export default function CreateNeedPage() {
         />
 
         <input
-          type="text"
-          placeholder="URL da foto"
-          value={photoUrl}
+          type="file"
+          accept="image/*"
           onChange={(e) =>
-            setPhotoUrl(e.target.value)
+            setImageFile(
+              e.target.files[0]
+            )
           }
           className="
             w-full
             border
             p-3
             rounded-lg
-            mb-6
+            mb-4
           "
         />
 

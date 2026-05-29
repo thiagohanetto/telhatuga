@@ -69,10 +69,10 @@ export default function MyNeedsPage() {
             "
           >
 
-            {availability.imageUrl && (
+            {need.imageUrl && (
 
               <img
-                src={availability.imageUrl}
+                src={need.imageUrl}
                 alt="Telha"
                 className="
                   w-full
