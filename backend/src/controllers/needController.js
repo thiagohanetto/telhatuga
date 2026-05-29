@@ -53,7 +53,9 @@ export async function createNeed(req, res) {
 
   } catch (error) {
 
-    console.error(error);
+    console.error(
+      JSON.stringify(error, null, 2)
+    );
 
     return res.status(500).json({
       error: "Erro interno"

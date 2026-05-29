@@ -61,21 +61,30 @@ export default function CreateNeedPage() {
     try {
 
       await api.post("/needs", {
+
         tileType,
+
         quantityNeeded:
           Number(quantityNeeded),
+
         city,
         district,
-        photoUrl
+
+        imageUrl
+
       });
 
-      alert(
-        "Necessidade criada!"
-      );
+      alert("Necessidade criada!");
 
       navigate("/dashboard");
 
     } catch (error) {
+
+      console.error(error);
+
+      console.error(
+        error.response?.data
+      );
 
       alert(
         error.response?.data?.error ||
@@ -84,7 +93,6 @@ export default function CreateNeedPage() {
 
     }
   }
-
   return (
 
     <div className="
